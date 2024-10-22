@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق تتبع وصيانة الأجهزة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #35424a;
+            color: #ffffff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            background: #35424a;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .device-list {
+            margin-top: 20px;
+        }
+        .device-item {
+            background: #f9f9f9;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>تطبيق تتبع وصيانة الأجهزة</h1>
+</header>
+
+<div class="container">
+    <h2>إضافة جهاز</h2>
+    <input type="text" id="deviceName" placeholder="اسم الجهاز" required>
+    <input type="text" id="serialNumber" placeholder="رقم السيريال" required>
+    <input type="date" id="purchaseDate" placeholder="تاريخ الشراء" required>
+    <button onclick="addDevice()">إضافة</button>
+
+    <div class="device-list" id="deviceList"></div>
+</div>
+
+<script>
+    const deviceList = [];
+
+    function addDevice() {
+        const name = document.getElementById('deviceName').value;
+        const serial = document.getElementById('serialNumber').value;
+        const date = document.getElementById('purchaseDate').value;
+
+        if (name && serial && date) {
+            const device = {
+                name: name,
+                serial: serial,
+                date: date
+            };
+            deviceList.push(device);
+            document.getElementById('deviceName').value = '';
+            document.getElementById('serialNumber').value = '';
+            document.getElementById('purchaseDate').value = '';
+            displayDevices();
+        }
+    }
+
+    function displayDevices() {
+        const list = document.getElementById('deviceList');
+        list.innerHTML = '';
+        deviceList.forEach((device, index) => {
+            list.innerHTML += `
+                <div class="device-item">
+                    <strong>${device.name}</strong><br>
+                    رقم السيريال: ${device.serial}<br>
+                    تاريخ الشراء: ${device.date}
+                </div>
+            `;
+        });
+    }
+</script>
+
+</body>
+</html>
